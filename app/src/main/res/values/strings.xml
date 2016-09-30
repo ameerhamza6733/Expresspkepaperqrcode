@@ -1,0 +1,10 @@
+<resources>
+    <string name="app_name">Express pk epaper qr code</string>
+    <string name="action_settings">Settings</string>
+
+    <string name="title_activity_decoder">DecoderActivity</string>
+    <string name="dummy_button">Dummy Button</string>
+    <string name="dummy_content">DUMMY\nCONTENT</string>
+    <string name="title_activity_scanner">ScannerActivity</string>
+    <string name="title_activity_my_scanner">myScannerActivity</string>
+</resources>

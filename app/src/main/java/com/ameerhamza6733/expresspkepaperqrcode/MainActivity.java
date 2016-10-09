@@ -1,9 +1,11 @@
 package com.ameerhamza6733.expresspkepaperqrcode;
 
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 
+import android.support.v4.app.DialogFragment;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
@@ -19,7 +21,7 @@ public class MainActivity extends AppCompatActivity {
 
     private ImageButton mImagebutoon;
     private Switch my_switch_flash_button;
-    private boolean flash_light_status;
+    private boolean flash_light_status=true;
     private TextView myScanTextView;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -28,10 +30,11 @@ public class MainActivity extends AppCompatActivity {
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         mImagebutoon = (ImageButton) findViewById(R.id.imageButton);
         my_switch_flash_button= (Switch) findViewById(R.id.my_flash_light_switch_button);
-        myScanTextView= (TextView) findViewById(R.id.my_scan_text_view);
+        myScanTextView= (TextView) findViewById(R.id.textView);
         setSupportActionBar(toolbar);
 
 
+        my_switch_flash_button.setChecked(true);
         my_switch_flash_button.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                 if(isChecked)
@@ -80,6 +83,13 @@ public class MainActivity extends AppCompatActivity {
     }
 
     @Override
+    public void onBackPressed() {
+        DialogFragment newFragment = new myDilogFragment();
+        newFragment.show(getSupportFragmentManager(), "myDilog");
+
+    }
+
+    @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         // Handle action bar item clicks here. The action bar will
         // automatically handle clicks on the Home/Up button, so long
@@ -88,7 +98,12 @@ public class MainActivity extends AppCompatActivity {
 
         //noinspection SimplifiableIfStatement
         if (id == R.id.action_settings) {
-            Toast.makeText(MainActivity.this,"Comming soon",Toast.LENGTH_LONG);
+            final String appPackageName = getPackageName(); // getPackageName() from Context or Activity object
+            try {
+                startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("market://details?id=" + appPackageName)));
+            } catch (android.content.ActivityNotFoundException anfe) {
+                startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("https://play.google.com/store/apps/details?id=" + appPackageName)));
+            }
             return true;
         }
 
